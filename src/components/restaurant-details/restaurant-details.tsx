@@ -15,8 +15,8 @@ interface RestaurantDetailsProps {
   /* image: string
     logo: string */
   name: string;
-  ratingAverage: number;
-  ratingTotal: number;
+  ratingAverage: string;
+  ratingTotal: string;
 }
 
 /**

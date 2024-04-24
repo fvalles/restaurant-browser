@@ -1,7 +1,12 @@
 import styled from "styled-components";
-import coverBk from "../../assets/images/cover-bk.png";
-import logoBk from "../../assets/images/logo-bk.png";
 import { RestaurantDetails } from "../restaurant-details";
+import { RestaurantsDto } from "../../types";
+
+/**
+ * Types
+ */
+
+type RestaurantCardProps = Omit<RestaurantsDto, "coordinates" | "id">;
 
 /**
  * Styled Components
@@ -35,6 +40,7 @@ const CardFooter = styled.div`
   height: 80px;
   margin-top: -37px;
   width: 313px;
+  z-index: -1;
 `;
 
 const FooterContainer = styled.div`
@@ -45,16 +51,31 @@ const FooterContainer = styled.div`
  * RestaurantCard Component
  */
 
-export const RestaurantCard = () => (
-  <CardContainer>
-    <CardBanner src={coverBk} alt="asdasd" />
-    <LogoImageContainer>
-      <LogoImage src={logoBk} alt="asdasd" />
-    </LogoImageContainer>
-    <CardFooter>
-      <FooterContainer>
-        <RestaurantDetails name="BURGER KING" ratingAverage={4.5} ratingTotal={456} />
-      </FooterContainer>
-    </CardFooter>
-  </CardContainer>
-);
+export const RestaurantCard = ({
+  image: banner,
+  logo,
+  name,
+  ratings,
+}: RestaurantCardProps) => {
+  const cardBannerAlt = `${name} banner`;
+  const cardLogoAlt = `${name} logo`;
+  const { average, total } = ratings;
+
+  return (
+    <CardContainer>
+      <CardBanner src={banner} alt={cardBannerAlt} />
+      <LogoImageContainer>
+        <LogoImage src={logo} alt={cardLogoAlt} />
+      </LogoImageContainer>
+      <CardFooter>
+        <FooterContainer>
+          <RestaurantDetails
+            name={name}
+            ratingAverage={average}
+            ratingTotal={total}
+          />
+        </FooterContainer>
+      </CardFooter>
+    </CardContainer>
+  );
+};

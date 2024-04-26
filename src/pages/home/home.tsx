@@ -4,6 +4,7 @@ import { H1 } from "../../components/typography";
 import { useFetchRestaurants } from "../../queries";
 import { Link } from "react-router-dom";
 import { Route } from "../../routes";
+import { useRestaurantStore } from "../../stores";
 
 /**
  * Styled Components
@@ -31,6 +32,7 @@ const TitleContainer = styled.div`
 
 export const Home = () => {
   const { isPending, error, data } = useFetchRestaurants();
+  const { setSelectedRestaurant } = useRestaurantStore();
 
   console.log("isPending", isPending);
   console.log("error", error);
@@ -45,11 +47,22 @@ export const Home = () => {
         <H1>Restaurantes</H1>
       </TitleContainer>
       {data.map(({ id, image, logo, name, ratings }) => {
-        const linkRoute = `${Route.RESTAURANT_DETAIL}/${id}`;
+        const linkRoute = `${Route.RESTAURANT_CATALOG}/${id}`;
 
         return (
           <RestaurantCardContainer key={id}>
-            <Link to={linkRoute}>
+            <Link
+              onClick={() =>
+                setSelectedRestaurant({
+                  bannerSrc: image,
+                  logoSrc: logo,
+                  name,
+                  ratingAverage: ratings.average,
+                  ratingTotal: ratings.total,
+                })
+              }
+              to={linkRoute}
+            >
               <RestaurantCard
                 image={image}
                 logo={logo}

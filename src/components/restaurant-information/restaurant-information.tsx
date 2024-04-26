@@ -4,20 +4,23 @@ import {
   ParagraphMedium,
   ParagraphSmall,
 } from "../typography";
-import starIcon from "../../assets/images/star-icon.svg";
-import locationIcon from "../../assets/images/location-icon.svg";
+import { Icon } from "../icon";
 
 /**
  * Types
  */
 
-interface RestaurantDetailsProps {
-  /* image: string
-    logo: string */
+interface RestaurantInformationProps {
   name: string;
   ratingAverage: string;
   ratingTotal: string;
 }
+
+/**
+ * Constants
+ */
+
+const ICON_SIZE = 11;
 
 /**
  * Styled Components
@@ -37,34 +40,38 @@ const RatingContainer = styled.div`
   margin-right: 15px;
 `;
 
-const Icon = styled.img`
-  height: 11px;
-  width: 11px;
+const IconContainer = styled.div`
+  align-self: center;
+  display: flex;
   margin-right: 5px;
 `;
 
 /**
- * RestaurantDetails Component
+ * RestaurantInformation Component
  */
 
-export const RestaurantDetails = ({
+export const RestaurantInformation = ({
   name,
   ratingAverage,
   ratingTotal,
-}: RestaurantDetailsProps) => (
+}: RestaurantInformationProps) => (
   <>
     <ParagraphExtraLarge>{name}</ParagraphExtraLarge>
     <NameContainer>
       <ParagraphMedium color="secondary">Comida rápida</ParagraphMedium>
     </NameContainer>
     <DetailsContainer>
-      <Icon src={starIcon} />
+      <IconContainer>
+        <Icon size={ICON_SIZE} name="star" />
+      </IconContainer>
       <RatingContainer>
         <ParagraphSmall color="secondary">
           {ratingAverage} ({ratingTotal})
         </ParagraphSmall>
       </RatingContainer>
-      <Icon src={locationIcon} />
+      <IconContainer>
+        <Icon size={ICON_SIZE} name="location" />
+      </IconContainer>
       <ParagraphSmall color="secondary">1.5 km</ParagraphSmall>
     </DetailsContainer>
   </>

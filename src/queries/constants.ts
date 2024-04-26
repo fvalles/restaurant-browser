@@ -3,5 +3,6 @@ export enum Endpoint {
 }
 
 export enum QueryKey {
+  CATALOG = "catalog",
   RESTAURANTS = "restaurants",
 }

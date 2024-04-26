@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { RestaurantDetails } from "../restaurant-details";
 import { RestaurantsDto } from "../../types";
+import { RestaurantInformation } from "../restaurant-information";
+import { RestaurantLogo } from "../restaurant-logo";
 
 /**
  * Types
@@ -12,14 +13,7 @@ type RestaurantCardProps = Omit<RestaurantsDto, "coordinates" | "id">;
  * Styled Components
  */
 
-const LogoImage = styled.img`
-  background-color: ${({ theme }) => theme.Colors.white};
-  border-radius: 15px;
-  height: 55px;
-  width: 55px;
-`;
-
-const LogoImageContainer = styled.div`
+const LogoContainer = styled.div`
   margin: -20px 0px 0px 20px;
 `;
 
@@ -64,12 +58,12 @@ export const RestaurantCard = ({
   return (
     <CardContainer>
       <CardBanner src={banner} alt={cardBannerAlt} />
-      <LogoImageContainer>
-        <LogoImage src={logo} alt={cardLogoAlt} />
-      </LogoImageContainer>
+      <LogoContainer>
+        <RestaurantLogo src={logo} alt={cardLogoAlt} size={55} />
+      </LogoContainer>
       <CardFooter>
         <FooterContainer>
-          <RestaurantDetails
+          <RestaurantInformation
             name={name}
             ratingAverage={average}
             ratingTotal={total}

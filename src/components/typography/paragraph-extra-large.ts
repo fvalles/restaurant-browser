@@ -6,4 +6,5 @@ export const ParagraphExtraLarge = styled.p<TypographyProps>`
   font-size: 16px;
   line-height: 18px;
   font-weight: 500;
+  text-transform: uppercase;
 `;

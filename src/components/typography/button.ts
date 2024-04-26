@@ -6,4 +6,5 @@ export const Button = styled.p<TypographyProps>`
   font-size: 18px;
   line-height: 24px;
   font-weight: 500;
+  text-transform: uppercase;
 `;

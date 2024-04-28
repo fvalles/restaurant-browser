@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 /**
  * Types
@@ -20,24 +21,32 @@ interface RestaurantData {
  * useRestaurantStore hook
  */
 
-export const useRestaurantStore = create<RestaurantStore>((set) => ({
-  bannerSrc: "",
-  logoSrc: "",
-  name: "",
-  ratingAverage: "",
-  ratingTotal: "",
-  setSelectedRestaurant: ({
-    bannerSrc,
-    logoSrc,
-    name,
-    ratingAverage,
-    ratingTotal,
-  }) =>
-    set(() => ({
-      bannerSrc,
-      logoSrc,
-      name,
-      ratingAverage,
-      ratingTotal,
-    })),
-}));
+export const useRestaurantStore = create(
+  persist<RestaurantStore>(
+    (set) => ({
+      bannerSrc: "",
+      logoSrc: "",
+      name: "",
+      ratingAverage: "",
+      ratingTotal: "",
+      setSelectedRestaurant: ({
+        bannerSrc,
+        logoSrc,
+        name,
+        ratingAverage,
+        ratingTotal,
+      }) =>
+        set(() => ({
+          bannerSrc,
+          logoSrc,
+          name,
+          ratingAverage,
+          ratingTotal,
+        })),
+    }),
+    {
+      name: "restaurant-storage",
+      storage: createJSONStorage(() => sessionStorage),
+    }
+  )
+);

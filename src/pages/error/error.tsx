@@ -1,21 +1,17 @@
 import styled from "styled-components";
 import {
   ParagraphExtraLarge,
-  ParagraphLarge,
   ParagraphMedium,
 } from "../../components/typography";
 import notFoundImage from "../../assets/images/404-not-found.png";
 import { Link } from "react-router-dom";
 import { Route } from "../../routes";
+import { Button } from "../../components/button";
+import { ButtonType } from "../../components/button";
 
 /**
  * Styled Components
  */
-
-const Button = styled.button`
-  background-color: ${({ theme }) => theme.Colors.primary};
-  padding: 15px;
-`;
 
 const Main = styled.main`
   align-items: center;
@@ -49,11 +45,7 @@ export const Error = () => (
       </ParagraphMedium>
     </SubtitleContainer>
     <Link to={Route.HOME}>
-      <Button>
-        <ParagraphLarge fontWeight={500} color="white">
-          Ir a la página principal
-        </ParagraphLarge>
-      </Button>
+      <Button title="Ir a la página principal" type={ButtonType.REGULAR} />
     </Link>
   </Main>
 );

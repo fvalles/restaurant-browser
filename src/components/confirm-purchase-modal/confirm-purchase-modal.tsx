@@ -9,6 +9,7 @@ import styled from "styled-components";
 import { CartItem } from "../../stores/cart-store";
 import { Link } from "react-router-dom";
 import { Route } from "../../routes";
+import { Button, ButtonType } from "../button";
 
 /**
  * Types
@@ -98,9 +99,7 @@ export const ConfirmPurchaseModal = ({
       <ParagraphLarge>Total = {totalOrderPrice} €</ParagraphLarge>
     </TotalPriceContainer>
     <ButtonsContainer>
-      <CancelButton onClick={onClose}>
-        <ParagraphLarge fontWeight={500}>CANCELAR</ParagraphLarge>
-      </CancelButton>
+      <Button onClick={onClose} title="CANCELAR" type={ButtonType.OUTLINE} />
       <Link
         onClick={() => {
           onClose();
@@ -108,11 +107,7 @@ export const ConfirmPurchaseModal = ({
         }}
         to={Route.HOME}
       >
-        <ConfirmPurchaseButton>
-          <ParagraphLarge color="white" fontWeight={500}>
-            CONFIRMAR
-          </ParagraphLarge>
-        </ConfirmPurchaseButton>
+        <Button title="CONFIRMAR" type={ButtonType.REGULAR} />
       </Link>
     </ButtonsContainer>
   </Modal>

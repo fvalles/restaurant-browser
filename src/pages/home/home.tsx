@@ -5,6 +5,7 @@ import { useFetchRestaurants } from "../../queries";
 import { Link } from "react-router-dom";
 import { Route } from "../../routes";
 import { useRestaurantStore } from "../../stores";
+import { AnimatedLayout } from "../../components/animated-layout";
 
 /**
  * Styled Components
@@ -42,37 +43,39 @@ export const Home = () => {
   if (error) return <></>;
 
   return (
-    <Main>
-      <TitleContainer>
-        <H1>Restaurantes</H1>
-      </TitleContainer>
-      {data.map(({ id, image, logo, name, ratings }) => {
-        const linkRoute = `${Route.RESTAURANT_CATALOG}/${id}`;
+    <AnimatedLayout>
+      <Main>
+        <TitleContainer>
+          <H1>Restaurantes</H1>
+        </TitleContainer>
+        {data.map(({ id, image, logo, name, ratings }) => {
+          const linkRoute = `${Route.RESTAURANT_CATALOG}/${id}`;
 
-        return (
-          <RestaurantCardContainer key={id}>
-            <Link
-              onClick={() =>
-                setSelectedRestaurant({
-                  bannerSrc: image,
-                  logoSrc: logo,
-                  name,
-                  ratingAverage: ratings.average,
-                  ratingTotal: ratings.total,
-                })
-              }
-              to={linkRoute}
-            >
-              <RestaurantCard
-                image={image}
-                logo={logo}
-                name={name}
-                ratings={ratings}
-              />
-            </Link>
-          </RestaurantCardContainer>
-        );
-      })}
-    </Main>
+          return (
+            <RestaurantCardContainer key={id}>
+              <Link
+                onClick={() =>
+                  setSelectedRestaurant({
+                    bannerSrc: image,
+                    logoSrc: logo,
+                    name,
+                    ratingAverage: ratings.average,
+                    ratingTotal: ratings.total,
+                  })
+                }
+                to={linkRoute}
+              >
+                <RestaurantCard
+                  image={image}
+                  logo={logo}
+                  name={name}
+                  ratings={ratings}
+                />
+              </Link>
+            </RestaurantCardContainer>
+          );
+        })}
+      </Main>
+    </AnimatedLayout>
   );
 };

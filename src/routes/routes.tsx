@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Home } from "../pages/home";
 import { RestaurantCatalog } from "../pages/restaurant-catalog";
+import App from "../App";
 
 /**
  * Types
@@ -17,11 +18,17 @@ export enum Route {
 
 export const router = createBrowserRouter([
   {
-    path: Route.HOME,
-    element: <Home />,
-  },
-  {
-    path: `${Route.RESTAURANT_CATALOG}/:restaurantId`,
-    element: <RestaurantCatalog />,
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: Route.HOME,
+        element: <Home />,
+      },
+      {
+        path: `${Route.RESTAURANT_CATALOG}/:restaurantId`,
+        element: <RestaurantCatalog />,
+      },
+    ],
   },
 ]);

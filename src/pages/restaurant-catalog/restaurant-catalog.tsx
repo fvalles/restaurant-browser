@@ -25,6 +25,7 @@ import { ProductTypes } from "../../components/product-types";
 import { ButtonText } from "../../components/typography";
 import { ConfirmPurchaseModal } from "../../components/confirm-purchase-modal";
 import { toast } from "react-toastify";
+import { AnimatedLayout } from "../../components/animated-layout";
 
 /**
  * Constants
@@ -75,7 +76,7 @@ export const RestaurantCatalog = () => {
   };
 
   return (
-    <>
+    <AnimatedLayout>
       <Banner $bannerSrc={bannerSrc}>
         <BannerIconsContainer>
           <Link to={Route.HOME}>
@@ -129,6 +130,6 @@ export const RestaurantCatalog = () => {
           totalOrderPrice={totalPrice}
         />
       </Main>
-    </>
+    </AnimatedLayout>
   );
 };

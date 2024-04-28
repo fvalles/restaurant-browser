@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { useRestaurantStore } from "../../stores";
+import { useCartStore, useRestaurantStore } from "../../stores";
 import { RestaurantLogo } from "../../components/restaurant-logo";
 import { RestaurantInformation } from "../../components/restaurant-information";
 import { useFetchCatalog } from "../../queries/use-fetch-catalog";
@@ -14,15 +14,15 @@ import {
   LogoContainer,
   Main,
   ProductCardContainer,
-  ProductTypeChip,
-  ProductTypesContainer,
   ProductsContainer,
   RestaurantInformationContainer,
   RightBannerIconsContainer,
   StarIconContainer,
+  TotalOrderButton,
 } from "./styled-components";
-import { ParagraphLarge } from "../../components/typography";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { ProductTypes } from "../../components/product-types";
+import { ButtonText } from "../../components/typography";
 
 /**
  * Constants
@@ -42,6 +42,7 @@ export const RestaurantCatalog = () => {
   const { isPending, error, data } = useFetchCatalog(restaurantId);
   const { bannerSrc, logoSrc, name, ratingAverage, ratingTotal } =
     useRestaurantStore();
+  const { totalPrice } = useCartStore();
 
   const logoAlt = `${name} logo`;
 
@@ -55,7 +56,7 @@ export const RestaurantCatalog = () => {
     ({ type }) => activeType === "" || type === activeType
   );
 
-  const handleProductTypeChipClick = (productType: string) => {
+  const handleProductTypeClick = (productType: string) => {
     activeType === productType ? setActiveType("") : setActiveType(productType);
   };
 
@@ -89,37 +90,22 @@ export const RestaurantCatalog = () => {
             ratingTotal={ratingTotal}
           />
         </RestaurantInformationContainer>
-        <ProductTypesContainer>
-          {productTypes.map((productType, index) => {
-            const isProductTypeActive = activeType === productType;
-            const isLastProductType = productTypes.length - 1 === index;
-            const isFirstProductType = index === 0;
-
-            return (
-              <ProductTypeChip
-                $active={isProductTypeActive}
-                $isFirst={isFirstProductType}
-                $isLast={isLastProductType}
-                key={productType}
-                onClick={() => handleProductTypeChipClick(productType)}
-              >
-                <ParagraphLarge
-                  color={isProductTypeActive ? "white" : "primary"}
-                >
-                  {productType}
-                </ParagraphLarge>
-              </ProductTypeChip>
-            );
-          })}
-        </ProductTypesContainer>
+        <ProductTypes
+          activeType={activeType}
+          onClick={handleProductTypeClick}
+          productTypes={productTypes}
+        />
         <CenteredContainer>
-          <ProductsContainer>
+          <ProductsContainer $isOrderButtonVisible={!!totalPrice}>
             {filteredCatalogProducts.map(({ image, name, price }) => (
               <ProductCardContainer key={name}>
                 <ProductCard image={image} name={name} price={price} />
               </ProductCardContainer>
             ))}
           </ProductsContainer>
+          <TotalOrderButton $isVisible={!!totalPrice}>
+            <ButtonText color="white">TOTAL ({totalPrice} €)</ButtonText>
+          </TotalOrderButton>
         </CenteredContainer>
       </Main>
     </>

@@ -1,4 +1,4 @@
-export { Button } from "./button";
+export { ButtonText } from "./button-text";
 export { H1 } from "./h1";
 export { ParagraphExtraLarge } from "./paragraph-extra-large";
 export { ParagraphLarge } from "./paragraph-large";

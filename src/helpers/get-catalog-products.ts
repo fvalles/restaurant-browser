@@ -1,10 +1,10 @@
-import { CatalogDto, Product } from "../types";
+import { CatalogDto, ProductDto } from "../types";
 
 /**
  * Types
  */
 
-interface CatalogProduct extends Product {
+interface CatalogProduct extends ProductDto {
   type: string;
 }
 

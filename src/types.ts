@@ -1,29 +1,29 @@
-export interface Coordinates {
+export interface CoordinatesDto {
   latitude: number;
   longitude: number;
 }
 
-export interface Product {
+export interface ProductDto {
   image: string;
   name: string;
   price: number;
 }
 
-export interface Ratings {
+export interface RatingsDto {
   average: string;
   total: string;
 }
 
 export interface CatalogDto {
   name: string;
-  products: Product[];
+  products: ProductDto[];
 }
 
 export interface RestaurantsDto {
-  coordinates: Coordinates;
+  coordinates: CoordinatesDto;
   id: string;
   image: string;
   logo: string;
   name: string;
-  ratings: Ratings;
+  ratings: RatingsDto;
 }

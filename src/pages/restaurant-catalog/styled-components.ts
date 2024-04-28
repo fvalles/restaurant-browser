@@ -5,10 +5,12 @@ import { MEDIA } from "../../constants/media-queries";
  * Types
  */
 
-interface ProductTypeChipProps {
-  $active?: boolean;
-  $isFirst?: boolean;
-  $isLast?: boolean;
+interface TotalOrderButtonProps {
+  $isVisible: boolean;
+}
+
+interface ProductsContainerProps {
+  $isOrderButtonVisible: boolean;
 }
 
 /**
@@ -43,7 +45,9 @@ export const BannerIconsContainer = styled.div`
 `;
 
 export const CenteredContainer = styled.div`
+  align-items: center;
   display: flex;
+  flex-direction: column;
   justify-content: center;
 `;
 
@@ -56,11 +60,12 @@ export const Main = styled.main`
   margin: 0px;
 `;
 
-export const ProductsContainer = styled.div`
+export const ProductsContainer = styled.div<ProductsContainerProps>`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin-top: 15px;
+  margin: 15px 0px
+    ${({ $isOrderButtonVisible }) => ($isOrderButtonVisible ? "100px" : "0px")};
 
   ${MEDIA.PHONE} {
     width: 324px;
@@ -79,22 +84,6 @@ export const ProductCardContainer = styled.div`
   margin-bottom: 15px;
 `;
 
-export const ProductTypeChip = styled.button<ProductTypeChipProps>`
-  background-color: ${({ $active, theme }) =>
-    $active ? theme.Colors.primary : theme.Colors.white};
-  border-radius: 25px;
-  margin-left: ${({ $isFirst }) => ($isFirst ? "20px" : "10px")};
-  margin-right: ${({ $isLast }) => ($isLast ? "20px" : "0px")};
-  padding: 10px 12px;
-`;
-
-export const ProductTypesContainer = styled.div`
-  display: flex;
-  margin-top: 20px;
-  overflow: auto;
-  white-space: nowrap;
-`;
-
 export const RestaurantInformationContainer = styled.div`
   margin: -25px 0px 0px 110px;
 `;
@@ -105,4 +94,13 @@ export const RightBannerIconsContainer = styled.div`
 
 export const StarIconContainer = styled.div`
   margin-left: 10px;
+`;
+
+export const TotalOrderButton = styled.button<TotalOrderButtonProps>`
+  background-color: ${({ theme }) => theme.Colors.primary};
+  border-radius: 10px;
+  bottom: 30px;
+  padding: 15px 85px;
+  position: fixed;
+  visibility: ${({ $isVisible }) => ($isVisible ? "visible" : "hidden")};
 `;

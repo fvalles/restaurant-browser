@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { Home } from "../pages/home";
 import { RestaurantCatalog } from "../pages/restaurant-catalog";
 import App from "../App";
+import { Error } from "../pages/error";
 
 /**
  * Types
@@ -20,6 +21,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <Error />,
     children: [
       {
         path: Route.HOME,

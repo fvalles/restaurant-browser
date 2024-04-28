@@ -23,6 +23,8 @@ import {
 import { useState } from "react";
 import { ProductTypes } from "../../components/product-types";
 import { ButtonText } from "../../components/typography";
+import { ConfirmPurchaseModal } from "../../components/confirm-purchase-modal";
+import { toast } from "react-toastify";
 
 /**
  * Constants
@@ -42,7 +44,8 @@ export const RestaurantCatalog = () => {
   const { isPending, error, data } = useFetchCatalog(restaurantId);
   const { bannerSrc, logoSrc, name, ratingAverage, ratingTotal } =
     useRestaurantStore();
-  const { totalPrice } = useCartStore();
+  const { cart, removeAll, totalPrice } = useCartStore();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const logoAlt = `${name} logo`;
 
@@ -56,8 +59,19 @@ export const RestaurantCatalog = () => {
     ({ type }) => activeType === "" || type === activeType
   );
 
+  const handleOpenModal = () => setIsModalOpen(true);
+  const handleCloseModal = () => setIsModalOpen(false);
+
   const handleProductTypeClick = (productType: string) => {
     activeType === productType ? setActiveType("") : setActiveType(productType);
+  };
+
+  const handlePurchase = () => {
+    removeAll();
+    toast.success("¡Compra realizada con éxito!", {
+      position: "bottom-center",
+      toastId: "purchase",
+    });
   };
 
   return (
@@ -103,10 +117,17 @@ export const RestaurantCatalog = () => {
               </ProductCardContainer>
             ))}
           </ProductsContainer>
-          <TotalOrderButton $isVisible={!!totalPrice}>
+          <TotalOrderButton $isVisible={!!totalPrice} onClick={handleOpenModal}>
             <ButtonText color="white">TOTAL ({totalPrice} €)</ButtonText>
           </TotalOrderButton>
         </CenteredContainer>
+        <ConfirmPurchaseModal
+          cart={cart}
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          onPurchase={handlePurchase}
+          totalOrderPrice={totalPrice}
+        />
       </Main>
     </>
   );

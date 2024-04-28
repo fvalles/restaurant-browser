@@ -7,7 +7,7 @@ import { ProductDto } from "../types";
 
 type Product = Omit<ProductDto, "image">;
 
-interface CartItem extends Product {
+export interface CartItem extends Product {
   count: number;
 }
 
@@ -49,7 +49,7 @@ const addCartItem = (
 
     return {
       newCart: cart,
-      newTotalPrice: totalPrice,
+      newTotalPrice: Number(totalPrice.toFixed(2)),
     };
   }
 

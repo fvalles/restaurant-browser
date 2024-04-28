@@ -33,18 +33,8 @@ const ButtonsContainer = styled.div`
   margin-top: 20px;
 `;
 
-const CancelButton = styled.button`
-  border: 1px solid ${({ theme }) => theme.Colors.primary};
-  padding: 10px;
-`;
-
 const CartItemContainer = styled.div`
   margin-bottom: 5px;
-`;
-
-const ConfirmPurchaseButton = styled.button`
-  background-color: ${({ theme }) => theme.Colors.primary};
-  padding: 10px;
 `;
 
 const SubtitleContainer = styled.div`

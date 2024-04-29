@@ -76,13 +76,13 @@ export const ConfirmPurchaseModal = ({
     {cart.map(({ count, name, price }) => {
       const cartItemTotalPrice = Number(price * count).toFixed(2);
 
-      return (
+      return count !== 0 ? (
         <CartItemContainer>
           <ParagraphMedium>
             {name} x {count} = {cartItemTotalPrice} €
           </ParagraphMedium>
         </CartItemContainer>
-      );
+      ) : null;
     })}
     <hr />
     <TotalPriceContainer>

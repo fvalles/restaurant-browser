@@ -6,6 +6,9 @@ import { Link } from "react-router-dom";
 import { Route } from "../../routes";
 import { useRestaurantStore } from "../../stores";
 import { AnimatedLayout } from "../../components/animated-layout";
+import { Loading } from "../../components/loading";
+import { useState } from "react";
+import { EmptyState } from "../../components/empty-state";
 
 /**
  * Styled Components
@@ -32,15 +35,20 @@ const TitleContainer = styled.div`
  */
 
 export const Home = () => {
-  const { isPending, error, data } = useFetchRestaurants();
+  const { isPending, error, data, refetch } = useFetchRestaurants();
   const { setSelectedRestaurant } = useRestaurantStore();
+  const [animationFinish, setAnimationFinish] = useState(false);
 
-  console.log("isPending", isPending);
-  console.log("error", error);
+  if (isPending || !animationFinish)
+    return (
+      <Loading
+        onLoopComplete={() => {
+          setAnimationFinish(true);
+        }}
+      />
+    );
 
-  if (isPending) return <></>;
-
-  if (error) return <></>;
+  if (error) return <EmptyState refetch={refetch} />;
 
   return (
     <AnimatedLayout>

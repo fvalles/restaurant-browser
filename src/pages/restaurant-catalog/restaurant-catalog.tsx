@@ -20,12 +20,14 @@ import {
   StarIconContainer,
   TotalOrderButton,
 } from "./styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ProductTypes } from "../../components/product-types";
 import { ButtonText } from "../../components/typography";
 import { ConfirmPurchaseModal } from "../../components/confirm-purchase-modal";
 import { toast } from "react-toastify";
 import { AnimatedLayout } from "../../components/animated-layout";
+import { Loading } from "../../components/loading";
+import { EmptyState } from "../../components/empty-state";
 
 /**
  * Constants
@@ -42,17 +44,31 @@ const RESTAURANT_LOGO_SIZE = 74;
 export const RestaurantCatalog = () => {
   const { restaurantId } = useParams();
   const [activeType, setActiveType] = useState("");
-  const { isPending, error, data } = useFetchCatalog(restaurantId);
+  const [animationFinish, setAnimationFinish] = useState(false);
+  const { isPending, error, data, refetch } = useFetchCatalog(restaurantId);
   const { bannerSrc, logoSrc, name, ratingAverage, ratingTotal } =
     useRestaurantStore();
   const { cart, removeAll, totalPrice } = useCartStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  useEffect(() => {
+    return () => {
+      removeAll();
+    };
+  }, [removeAll]);
+
   const logoAlt = `${name} logo`;
 
-  if (isPending) return <></>;
+  if (isPending || !animationFinish)
+    return (
+      <Loading
+        onLoopComplete={() => {
+          setAnimationFinish(true);
+        }}
+      />
+    );
 
-  if (error) return <></>;
+  if (error) return <EmptyState refetch={refetch} />;
 
   const { catalogProducts, productTypes } = getCatalogProducts(data);
 

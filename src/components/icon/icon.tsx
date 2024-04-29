@@ -14,6 +14,7 @@ export enum IconType {
   star = "star",
   star_filled = "star_filled",
   search = "search",
+  search_filled = "search_filled",
 }
 
 interface IconProps {

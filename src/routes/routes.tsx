@@ -3,6 +3,7 @@ import { Home } from "../pages/home";
 import { RestaurantCatalog } from "../pages/restaurant-catalog";
 import App from "../App";
 import { Error } from "../pages/error";
+import { Search } from "../pages/search";
 
 /**
  * Types
@@ -11,6 +12,7 @@ import { Error } from "../pages/error";
 export enum Route {
   HOME = "/",
   RESTAURANT_CATALOG = "restaurant-catalog",
+  SEARCH = "/search",
 }
 
 /**
@@ -30,6 +32,10 @@ export const router = createBrowserRouter([
       {
         path: `${Route.RESTAURANT_CATALOG}/:restaurantId`,
         element: <RestaurantCatalog />,
+      },
+      {
+        path: `${Route.SEARCH}/:restaurantId`,
+        element: <Search />,
       },
     ],
   },

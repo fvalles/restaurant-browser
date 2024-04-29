@@ -25,6 +25,7 @@ import { AnimatedLayout } from "../../components/animated-layout";
 import { Loading } from "../../components/loading";
 import { EmptyState } from "../../components/empty-state";
 import { useRestaurantCatalog } from "../../hooks/use-restaurant-catalog";
+import { Header } from "../../components/header";
 
 /**
  * Constants
@@ -60,6 +61,7 @@ export const RestaurantCatalog = () => {
     ratingAverage,
     ratingTotal,
     refetch,
+    restaurantId,
     setAnimationFinish,
     totalPrice,
   } = useRestaurantCatalog();
@@ -91,13 +93,16 @@ export const RestaurantCatalog = () => {
 
   return (
     <AnimatedLayout>
+      <Header />
       <Banner $bannerSrc={bannerSrc}>
         <BannerIconsContainer>
           <Link to={Route.HOME}>
             <Icon name="back_arrow" size={BANNER_ICON_SIZE} />
           </Link>
           <RightBannerIconsContainer>
-            <Icon name="search" size={BANNER_ICON_SIZE} />
+            <Link to={`${Route.SEARCH}/${restaurantId}`}>
+              <Icon name="search_filled" size={BANNER_ICON_SIZE} />
+            </Link>
             <StarIconContainer>
               <Icon name="star_filled" size={BANNER_ICON_SIZE} />
             </StarIconContainer>

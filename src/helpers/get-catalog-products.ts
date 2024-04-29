@@ -4,7 +4,7 @@ import { CatalogDto, ProductDto } from "../types";
  * Types
  */
 
-interface CatalogProduct extends ProductDto {
+export interface CatalogProduct extends ProductDto {
   type: string;
 }
 

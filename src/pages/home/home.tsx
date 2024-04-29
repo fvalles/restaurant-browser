@@ -4,14 +4,14 @@ import { H1 } from "../../components/typography";
 import { useFetchRestaurants } from "../../queries";
 import { Link } from "react-router-dom";
 import { Route } from "../../routes";
-import { useRestaurantStore } from "../../stores";
+import { useCartStore, useRestaurantStore, useUserStore } from "../../stores";
 import { AnimatedLayout } from "../../components/animated-layout";
 import { Loading } from "../../components/loading";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { EmptyState } from "../../components/empty-state";
 import { getRestaurantDistance } from "../../helpers/get-restaurant-distance";
 import { useUserCoordinates } from "../../hooks/use-user-coordinates";
-import { useUserStore } from "../../stores/user-store";
+import { Header } from "../../components/header";
 
 /**
  * Styled Components
@@ -44,6 +44,16 @@ export const Home = () => {
     useFetchRestaurants();
   const { setSelectedRestaurant } = useRestaurantStore();
   const [animationFinish, setAnimationFinish] = useState(false);
+  const { cart, removeAll } = useCartStore();
+
+  /** Returning to home screen remove cart products */
+  useEffect(() => {
+    return () => {
+      if (cart.length > 0) {
+        removeAll();
+      }
+    };
+  }, [cart.length, removeAll]);
 
   if (isRefetching || isPending || !animationFinish)
     return (
@@ -66,6 +76,7 @@ export const Home = () => {
 
   return (
     <AnimatedLayout>
+      <Header />
       <Main>
         <TitleContainer>
           <H1>Restaurantes</H1>

@@ -1,4 +1,3 @@
-import { Header } from "./components/header";
 import { useLocation, useOutlet } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { ToastContainer } from "react-toastify";
@@ -9,7 +8,7 @@ import React from "react";
  * AnimatedOutlet Component
  */
 
- const AnimatedOutlet = () => {
+const AnimatedOutlet = () => {
   const location = useLocation();
   const element = useOutlet();
 
@@ -27,7 +26,6 @@ import React from "react";
 function App() {
   return (
     <>
-      <Header />
       <AnimatedOutlet />
       <ToastContainer />
     </>

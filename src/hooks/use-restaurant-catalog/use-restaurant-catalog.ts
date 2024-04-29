@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useCartStore, useRestaurantStore } from "../../stores";
 import { useFetchCatalog } from "../../queries/use-fetch-catalog";
@@ -18,12 +18,6 @@ export const useRestaurantCatalog = () => {
     useRestaurantStore();
   const { cart, removeAll, totalPrice } = useCartStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  useEffect(() => {
-    return () => {
-      removeAll();
-    };
-  }, [removeAll]);
 
   const logoAlt = `${name} logo`;
 
@@ -63,6 +57,7 @@ export const useRestaurantCatalog = () => {
     ratingAverage,
     ratingTotal,
     refetch,
+    restaurantId,
     setAnimationFinish,
     totalPrice,
   };

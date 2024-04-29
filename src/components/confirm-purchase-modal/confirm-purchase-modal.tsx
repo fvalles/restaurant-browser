@@ -77,7 +77,7 @@ export const ConfirmPurchaseModal = ({
       const cartItemTotalPrice = Number(price * count).toFixed(2);
 
       return count !== 0 ? (
-        <CartItemContainer>
+        <CartItemContainer key={name}>
           <ParagraphMedium>
             {name} x {count} = {cartItemTotalPrice} €
           </ParagraphMedium>

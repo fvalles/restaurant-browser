@@ -11,6 +11,7 @@ import { Icon } from "../icon";
  */
 
 interface RestaurantInformationProps {
+  distance: number | null;
   name: string;
   ratingAverage: string;
   ratingTotal: string;
@@ -51,6 +52,7 @@ const IconContainer = styled.div`
  */
 
 export const RestaurantInformation = ({
+  distance,
   name,
   ratingAverage,
   ratingTotal,
@@ -72,7 +74,7 @@ export const RestaurantInformation = ({
       <IconContainer>
         <Icon size={ICON_SIZE} name="location" />
       </IconContainer>
-      <ParagraphSmall color="secondary">1.5 km</ParagraphSmall>
+      <ParagraphSmall color="secondary">{distance ?? "?"} km</ParagraphSmall>
     </DetailsContainer>
   </>
 );

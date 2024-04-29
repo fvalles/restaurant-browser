@@ -9,6 +9,9 @@ import { AnimatedLayout } from "../../components/animated-layout";
 import { Loading } from "../../components/loading";
 import { useState } from "react";
 import { EmptyState } from "../../components/empty-state";
+import { getRestaurantDistance } from "../../helpers/get-restaurant-distance";
+import { useUserCoordinates } from "../../hooks/use-user-coordinates";
+import { useUserStore } from "../../stores/user-store";
 
 /**
  * Styled Components
@@ -35,6 +38,8 @@ const TitleContainer = styled.div`
  */
 
 export const Home = () => {
+  useUserCoordinates();
+  const { latitude: userLatitude, longitude: userLongitude } = useUserStore();
   const { data, error, isPending, isRefetching, refetch } =
     useFetchRestaurants();
   const { setSelectedRestaurant } = useRestaurantStore();
@@ -65,33 +70,50 @@ export const Home = () => {
         <TitleContainer>
           <H1>Restaurantes</H1>
         </TitleContainer>
-        {data.map(({ id, image, logo, name, ratings }) => {
-          const linkRoute = `${Route.RESTAURANT_CATALOG}/${id}`;
+        {data.map(
+          ({
+            coordinates: { latitude, longitude },
+            id,
+            image,
+            logo,
+            name,
+            ratings,
+          }) => {
+            const linkRoute = `${Route.RESTAURANT_CATALOG}/${id}`;
+            const restaurantDistance = getRestaurantDistance({
+              userLatitude,
+              userLongitude,
+              restaurantLatitude: latitude,
+              restaurantLongitude: longitude,
+            });
 
-          return (
-            <RestaurantCardContainer key={id}>
-              <Link
-                onClick={() =>
-                  setSelectedRestaurant({
-                    bannerSrc: image,
-                    logoSrc: logo,
-                    name,
-                    ratingAverage: ratings.average,
-                    ratingTotal: ratings.total,
-                  })
-                }
-                to={linkRoute}
-              >
-                <RestaurantCard
-                  image={image}
-                  logo={logo}
-                  name={name}
-                  ratings={ratings}
-                />
-              </Link>
-            </RestaurantCardContainer>
-          );
-        })}
+            return (
+              <RestaurantCardContainer key={id}>
+                <Link
+                  onClick={() =>
+                    setSelectedRestaurant({
+                      bannerSrc: image,
+                      distance: restaurantDistance,
+                      logoSrc: logo,
+                      name,
+                      ratingAverage: ratings.average,
+                      ratingTotal: ratings.total,
+                    })
+                  }
+                  to={linkRoute}
+                >
+                  <RestaurantCard
+                    distance={restaurantDistance}
+                    image={image}
+                    logo={logo}
+                    name={name}
+                    ratings={ratings}
+                  />
+                </Link>
+              </RestaurantCardContainer>
+            );
+          }
+        )}
       </Main>
     </AnimatedLayout>
   );

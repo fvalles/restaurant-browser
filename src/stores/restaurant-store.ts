@@ -11,6 +11,7 @@ interface RestaurantStore extends RestaurantData {
 
 interface RestaurantData {
   bannerSrc: string;
+  distance: number | null;
   logoSrc: string;
   name: string;
   ratingAverage: string;
@@ -25,12 +26,14 @@ export const useRestaurantStore = create(
   persist<RestaurantStore>(
     (set) => ({
       bannerSrc: "",
+      distance: null,
       logoSrc: "",
       name: "",
       ratingAverage: "",
       ratingTotal: "",
       setSelectedRestaurant: ({
         bannerSrc,
+        distance,
         logoSrc,
         name,
         ratingAverage,
@@ -38,6 +41,7 @@ export const useRestaurantStore = create(
       }) =>
         set(() => ({
           bannerSrc,
+          distance,
           logoSrc,
           name,
           ratingAverage,

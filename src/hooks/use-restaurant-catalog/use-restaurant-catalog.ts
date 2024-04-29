@@ -14,7 +14,7 @@ export const useRestaurantCatalog = () => {
   const [animationFinish, setAnimationFinish] = useState(false);
   const { data, error, isPending, isRefetching, refetch } =
     useFetchCatalog(restaurantId);
-  const { bannerSrc, logoSrc, name, ratingAverage, ratingTotal } =
+  const { bannerSrc, distance, logoSrc, name, ratingAverage, ratingTotal } =
     useRestaurantStore();
   const { cart, removeAll, totalPrice } = useCartStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -48,6 +48,7 @@ export const useRestaurantCatalog = () => {
     bannerSrc,
     cart,
     data,
+    distance,
     error,
     handleCloseModal,
     handleOpenModal,

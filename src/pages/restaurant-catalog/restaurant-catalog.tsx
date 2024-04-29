@@ -45,6 +45,7 @@ export const RestaurantCatalog = () => {
     bannerSrc,
     cart,
     data,
+    distance,
     error,
     handleCloseModal,
     handleOpenModal,
@@ -113,6 +114,7 @@ export const RestaurantCatalog = () => {
         </LogoContainer>
         <RestaurantInformationContainer>
           <RestaurantInformation
+            distance={distance}
             name={name}
             ratingAverage={ratingAverage}
             ratingTotal={ratingTotal}

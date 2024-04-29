@@ -7,7 +7,10 @@ import { RestaurantLogo } from "../restaurant-logo";
  * Types
  */
 
-type RestaurantCardProps = Omit<RestaurantsDto, "coordinates" | "id">;
+interface RestaurantCardProps
+  extends Omit<RestaurantsDto, "coordinates" | "id"> {
+  distance: number | null;
+}
 
 /**
  * Styled Components
@@ -46,6 +49,7 @@ const FooterContainer = styled.div`
  */
 
 export const RestaurantCard = ({
+  distance,
   image: banner,
   logo,
   name,
@@ -64,6 +68,7 @@ export const RestaurantCard = ({
       <CardFooter>
         <FooterContainer>
           <RestaurantInformation
+            distance={distance}
             name={name}
             ratingAverage={average}
             ratingTotal={total}

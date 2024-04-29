@@ -26,3 +26,6 @@ The app can be executed writing `npm run start` from the root directory
 ## Screenshots
 
 ### Typographic Components design
+
+<img width="810" alt="Screenshot 2024-04-29 at 9 44 06 PM" src="https://github.com/fvalles/restaurant-browser/assets/50526650/17c6c7eb-96e8-4499-9304-8ff6a9b6f264">
+<img width="820" alt="Screenshot 2024-04-29 at 9 44 23 PM" src="https://github.com/fvalles/restaurant-browser/assets/50526650/52ec7899-6d31-4035-a68d-bb392b95d4f5">

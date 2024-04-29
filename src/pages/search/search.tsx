@@ -10,6 +10,7 @@ import { MEDIA } from "../../constants/media-queries";
 import { useCartStore } from "../../stores";
 import { Route } from "../../routes";
 import { SearchProductRow } from "../../components/search-product-row";
+import { toast } from "react-toastify";
 
 /**
  * Styled Components
@@ -102,6 +103,10 @@ export const Search = () => {
 
   const handleProductClick = (productName: string, productPrice: number) => {
     navigate(`/${Route.RESTAURANT_CATALOG}/${restaurantId}`);
+    toast("Producto agregado al carrito", {
+      position: "top-center",
+      toastId: "search-product-add",
+    });
     add({ name: productName, price: productPrice });
   };
 

@@ -15,7 +15,7 @@ The app can be executed writing `npm run start` from the root directory
 - **Reusable components** were created. They are located in `src/components`.
 - **Typographic reusable components** are located in `src/components/typography`. Below I attach screenshots from my Excalidraw board (https://excalidraw.com/) with the names assigned to each text string.
 - **A color palette** was created inside of `src/core/theme` and shared through a `<ThemeProvider />` to all Styled Components.
-- `<ToastContainer />` from **react-toastify** was used to inform when the user executes a purchase successfully.
+- `<ToastContainer />` from **react-toastify** was used to inform when the user executes a purchase successfully and when a product is added from the search page.
 - `Session Storage` was used to persist useful session data (restaurant and user zustand stores).
 - **API requests** are handled by **react query** which offers among other things: cache capabilities and error, isPending and isRefetching states. Cache is being used so that the query returned value is cached by react query.
 - An **Empty state component** was created to show when there is an API request error.

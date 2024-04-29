@@ -8,6 +8,8 @@ It was developed with **React JS**, **React Query**, **Typescript**, **Zustand**
 
 The app can be executed writing `npm run start` from the root directory
 
+**[👉🏼 Go to Restaurant Browser App on Netlify 👈🏼] (https://restaurant-browser.netlify.app)**
+
 ## Coding details
 
 - **Reusable components** were created. They are located in `src/components`.

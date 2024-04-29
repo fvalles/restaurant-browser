@@ -90,7 +90,7 @@ export const Search = () => {
 
   const { catalogProducts } = getCatalogProducts(data);
   const searchResult = catalogProducts.filter(({ name }) =>
-    name.toLowerCase().includes(searchedProduct)
+    name.toLowerCase().includes(searchedProduct.toLowerCase())
   );
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {

@@ -35,11 +35,12 @@ const TitleContainer = styled.div`
  */
 
 export const Home = () => {
-  const { isPending, error, data, refetch } = useFetchRestaurants();
+  const { data, error, isPending, isRefetching, refetch } =
+    useFetchRestaurants();
   const { setSelectedRestaurant } = useRestaurantStore();
   const [animationFinish, setAnimationFinish] = useState(false);
 
-  if (isPending || !animationFinish)
+  if (isRefetching || isPending || !animationFinish)
     return (
       <Loading
         onLoopComplete={() => {
@@ -48,7 +49,15 @@ export const Home = () => {
       />
     );
 
-  if (error) return <EmptyState refetch={refetch} />;
+  if (error || !data)
+    return (
+      <EmptyState
+        refetch={() => {
+          refetch();
+          setAnimationFinish(false);
+        }}
+      />
+    );
 
   return (
     <AnimatedLayout>

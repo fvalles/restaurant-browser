@@ -1,8 +1,6 @@
-import { Link, useParams } from "react-router-dom";
-import { useCartStore, useRestaurantStore } from "../../stores";
+import { Link } from "react-router-dom";
 import { RestaurantLogo } from "../../components/restaurant-logo";
 import { RestaurantInformation } from "../../components/restaurant-information";
-import { useFetchCatalog } from "../../queries/use-fetch-catalog";
 import { Icon } from "../../components/icon";
 import { Route } from "../../routes";
 import { ProductCard } from "../../components/product-card";
@@ -20,14 +18,13 @@ import {
   StarIconContainer,
   TotalOrderButton,
 } from "./styled-components";
-import { useEffect, useState } from "react";
 import { ProductTypes } from "../../components/product-types";
 import { ButtonText } from "../../components/typography";
 import { ConfirmPurchaseModal } from "../../components/confirm-purchase-modal";
-import { toast } from "react-toastify";
 import { AnimatedLayout } from "../../components/animated-layout";
 import { Loading } from "../../components/loading";
 import { EmptyState } from "../../components/empty-state";
+import { useRestaurantCatalog } from "../../hooks/use-restaurant-catalog";
 
 /**
  * Constants
@@ -42,24 +39,31 @@ const RESTAURANT_LOGO_SIZE = 74;
  */
 
 export const RestaurantCatalog = () => {
-  const { restaurantId } = useParams();
-  const [activeType, setActiveType] = useState("");
-  const [animationFinish, setAnimationFinish] = useState(false);
-  const { isPending, error, data, refetch } = useFetchCatalog(restaurantId);
-  const { bannerSrc, logoSrc, name, ratingAverage, ratingTotal } =
-    useRestaurantStore();
-  const { cart, removeAll, totalPrice } = useCartStore();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const {
+    activeType,
+    animationFinish,
+    bannerSrc,
+    cart,
+    data,
+    error,
+    handleCloseModal,
+    handleOpenModal,
+    handleProductTypeClick,
+    handlePurchase,
+    isModalOpen,
+    isPending,
+    isRefetching,
+    logoAlt,
+    logoSrc,
+    name,
+    ratingAverage,
+    ratingTotal,
+    refetch,
+    setAnimationFinish,
+    totalPrice,
+  } = useRestaurantCatalog();
 
-  useEffect(() => {
-    return () => {
-      removeAll();
-    };
-  }, [removeAll]);
-
-  const logoAlt = `${name} logo`;
-
-  if (isPending || !animationFinish)
+  if (isRefetching || isPending || !animationFinish)
     return (
       <Loading
         onLoopComplete={() => {
@@ -68,28 +72,21 @@ export const RestaurantCatalog = () => {
       />
     );
 
-  if (error) return <EmptyState refetch={refetch} />;
+  if (error || !data)
+    return (
+      <EmptyState
+        refetch={() => {
+          refetch();
+          setAnimationFinish(false);
+        }}
+      />
+    );
 
   const { catalogProducts, productTypes } = getCatalogProducts(data);
 
   const filteredCatalogProducts = catalogProducts.filter(
     ({ type }) => activeType === "" || type === activeType
   );
-
-  const handleOpenModal = () => setIsModalOpen(true);
-  const handleCloseModal = () => setIsModalOpen(false);
-
-  const handleProductTypeClick = (productType: string) => {
-    activeType === productType ? setActiveType("") : setActiveType(productType);
-  };
-
-  const handlePurchase = () => {
-    removeAll();
-    toast.success("¡Compra realizada con éxito!", {
-      position: "bottom-center",
-      toastId: "purchase",
-    });
-  };
 
   return (
     <AnimatedLayout>

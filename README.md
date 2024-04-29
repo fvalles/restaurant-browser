@@ -1,46 +1,28 @@
-# Getting Started with Create React App
+# Restaurant Browser App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## General information
 
-## Available Scripts
+This repository holds a **restaurant weather app**. 🍔
 
-In the project directory, you can run:
+It was developed with **React JS**, **React Query**, **Typescript**, **Zustand** and **Styled Components**! 🚀
 
-### `npm start`
+The app can be executed writing `npm run start` from the root directory
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Coding details
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- **Reusable components** were created. They are located in `src/components`.
+- **Typographic reusable components** are located in `src/components/typography`. Below I attach screenshots from my Excalidraw board (https://excalidraw.com/) with the names assigned to each text string.
+- **A color palette** was created inside of `src/core/theme` and shared through a `<ThemeProvider />` to all Styled Components.
+- `<ToastContainer />` from **react-toastify** was used to inform when the user executes a purchase successfully.
+- `Session Storage` was used to persist useful session data (restaurant and user zustand stores).
+- **API requests** are handled by **react query** which offers among other things: cache capabilities and error, isPending and isRefetching states. Cache is being used so that the query returned value is cached by react query.
+- An **Empty state component** was created to show when there is an API request error.
+- A **custom default image** was used for the **product images** when the source returned from the API throws an error.
+- A **Loading** component was created with a **lottie animation**. It is rendered when the app is waiting for the API data.
+- **Custom hooks** and **helpers** were created to handle logic, separate concerns and improve code legibility.
+- **Geolocation API** was used to calculate the distance between the user and the restaurants.
+- **Error Page** was created to catch 404 errors when the user enters an invalid URL.
 
-### `npm test`
+## Screenshots
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Typographic Components design

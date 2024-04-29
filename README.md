@@ -22,6 +22,7 @@ The app can be executed writing `npm run start` from the root directory
 - **Custom hooks** and **helpers** were created to handle logic, separate concerns and improve code legibility.
 - **Geolocation API** was used to calculate the distance between the user and the restaurants.
 - **Error Page** was created to catch 404 errors when the user enters an invalid URL.
+- **Custom hamburguer favicon** was used.
 
 ## Screenshots
 

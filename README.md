@@ -2,7 +2,7 @@
 
 ## General information
 
-This repository holds a **restaurant weather app**. 🍔
+This repository holds a **restaurant browser app**. 🍔
 
 It was developed with **React JS**, **React Query**, **Typescript**, **Zustand** and **Styled Components**! 🚀
 
